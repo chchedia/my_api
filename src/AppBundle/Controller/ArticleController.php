@@ -40,4 +40,19 @@ class ArticleController extends Controller
 
         return new Response('', Response::HTTP_CREATED);
     }
+
+    /**
+     * @Route("/articles", name="article_list")
+     * @Method({"GET"})
+     */
+    public function listAction()
+    {
+        $articles = $this->getDoctrine()->getRepository('AppBundle:Article')->findAll();
+        $data = $this->get('jms_serializer')->serialize($articles, 'json');
+
+        $response = new Response($data);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
 }

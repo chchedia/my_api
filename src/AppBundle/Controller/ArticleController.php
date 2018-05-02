@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
+use JMS\Serializer\SerializationContext;
 
 
 class ArticleController extends Controller
@@ -17,7 +18,8 @@ class ArticleController extends Controller
      */
     public function showAction(Article $article)
     {
-        $data = $this->get('jms_serializer')->serialize($article, 'json');
+        $data = $this->get('jms_serializer')->serialize($article, 'json', serializationContext::create()->setGroups(array('list')));
+        //$data = $this->get('jms_serializer')->serialize($article, 'json', serializationContext::create()->setGroups(array('detail'))); //Serialiser le groupe detail
 
         $response = new Response($data);
         $response->headers->set('Content-Type', 'application/json');

@@ -10,8 +10,6 @@ use JMS\Serializer\Annotation as Serializer;
  *
  * @ORM\Table(name="entity_article")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Entity\ArticleRepository")
- *
- * @Serializer\ExclusionPolicy("ALL")
  */
 class Article
 {
@@ -21,6 +19,8 @@ class Article
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @Serializer\Groups({"list"})
      */
     private $id;
 
@@ -29,7 +29,7 @@ class Article
      *
      * @ORM\Column(name="title", type="string", length=100)
      *
-     * @Serializer\Expose
+     * @Serializer\Groups({"detail", "list"})
      */
     private $title;
 
@@ -38,7 +38,7 @@ class Article
      *
      * @ORM\Column(name="content", type="text")
      *
-     * @Serializer\Expose
+     * @Serializer\Groups({"detail", "list"})
      */
     private $content;
 

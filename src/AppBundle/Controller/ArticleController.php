@@ -18,7 +18,6 @@ class ArticleController extends Controller
      */
     public function showAction(Article $article)
     {
-        //$data = $this->get('jms_serializer')->serialize($article, 'json', serializationContext::create()->setGroups(array('list'))); // serialiser le groupe list
         $data = $this->get('jms_serializer')->serialize($article, 'json', serializationContext::create()->setGroups(array('detail'))); //Serialiser le groupe detail
 
         $response = new Response($data);
@@ -50,8 +49,7 @@ class ArticleController extends Controller
     public function listAction()
     {
         $articles = $this->getDoctrine()->getRepository('AppBundle:Article')->findAll();
-        $data = $this->get('jms_serializer')->serialize($articles, 'json');
-
+        $data = $this->get('jms_serializer')->serialize($articles, 'json', serializationContext::create()->setGroups(array('list'))); // serialiser le groupe list
         $response = new Response($data);
         $response->headers->set('Content-Type', 'application/json');
 

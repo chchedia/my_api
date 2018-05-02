@@ -18,8 +18,8 @@ class ArticleController extends Controller
      */
     public function showAction(Article $article)
     {
-        $data = $this->get('jms_serializer')->serialize($article, 'json', serializationContext::create()->setGroups(array('list')));
-        //$data = $this->get('jms_serializer')->serialize($article, 'json', serializationContext::create()->setGroups(array('detail'))); //Serialiser le groupe detail
+        //$data = $this->get('jms_serializer')->serialize($article, 'json', serializationContext::create()->setGroups(array('list'))); // serialiser le groupe list
+        $data = $this->get('jms_serializer')->serialize($article, 'json', serializationContext::create()->setGroups(array('detail'))); //Serialiser le groupe detail
 
         $response = new Response($data);
         $response->headers->set('Content-Type', 'application/json');
